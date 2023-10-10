@@ -31,9 +31,9 @@ Specify the Partner ID with the mocaverse-partner-id meta element in the head of
 ```
 
 ### 3. Add a Join Mocaverse button:
-Add a button element with the class join-moca-button to your page:
+Add a div element with the class join-moca-button to your page:
 ```
-    <button class="join-moca-button" data-token="<%= jwt %>">Join Mocaverse</button>
+    <div class="join-moca-button" data-token="<%= jwt %>"></div>
 ```
 
 Your app must generate a JWT and embed it in this element on your website. In the above code snippet, replace `<%= jwt %>` with the JWT generated for your currently logged in user.
