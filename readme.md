@@ -38,7 +38,37 @@ Add a div element with the class join-moca-button to your page:
 
 Your app must generate a JWT and embed it in this element on your website. In the above code snippet, replace `<%= jwt %>` with the JWT generated for your currently logged in user.
 
-### 4. Customizing Button Size
+#### 3.1 JWT Information
+The JWT should embed the fields below, and signed by your backend server using RS256 algorithm with an expiration of 1 hour:
+
+- partnerId: Your **Partner ID** provided by us (e.g. `3d6cbe7d-4a27-4590-bb42-ada214da6cfb`)
+- partnerUserId: Their unqiue **User ID** in your system (e.g. `2c55dc7d-5715-4cb9-9801-f62498c02077`)
+- partnerUserName: Their **Display name** in your system (e.g. `gamertag123`)
+
+#### 3.2 Dynamically loading the "Join Mocaverse" button
+By default, the `Join Mocaverse` button loads when DOM is ready. Hence, If the button may not appear if your `Join Mocaverse` snippet is dynamically injected after DOM is ready. In this case, there are 2 options after injecting your `Join mocaverse` snippet:
+1. dynamically load the mocaverse platform library in step 1, OR
+2. call `mocaverse.partner.init();`
+
+the above 2 options would initiate the rendering of the ` Join Nocaverse` button.
+
+### 4. Add optional attributes
+
+| Attribute | Value      | Default  | Description                             |
+|-----------|------------|----------|-----------------------------------------|
+| `redirect-url`  | URI | `normal` | Optional. Redirection URL after user joins mocaverse. |
+| `size`    | `normal` `compact` | `normal` | Optional. The size of the widget. |
+
+#### Redirect users back to your app after they've joined mocaverse
+By default, users would continue their journey on Mocaverse after joining. If you would like users to come back to your app after joining mocaverse, add an absolute url for redirecting back to your site back specifying `redirect-url` attribute.
+
+**Note**: The domain of the redirect url needs to be in the whitelisted domains defined during set up.
+
+```html
+<div class="join-moca-button" redirect-url="<%= your_url %>" data-token="<%= jwt %>"></div>
+```
+
+#### Customizing the button size
 
 If you prefer a smaller-sized button, you can achieve this by adding a `size` attribute to the div element used in the previous step. Set the value of the `size` attribute to "compact" as follows:
 
@@ -46,21 +76,6 @@ If you prefer a smaller-sized button, you can achieve this by adding a `size` at
 <div class="join-moca-button" size="compact" data-token="<%= jwt %>"></div>
 ```
 
-#### JWT Information
-The JWT should embed the fields below, and signed by your backend server using RS256 algorithm with an expiration of 1 hour:
-
-- partnerId: Your **Partner ID** provided by us (e.g. `3d6cbe7d-4a27-4590-bb42-ada214da6cfb`)
-- partnerUserId: Their unqiue **User ID** in your system (e.g. `2c55dc7d-5715-4cb9-9801-f62498c02077`)
-- partnerUserName: Their **Display name** in your system (e.g. `gamertag123`)
-
-### Integration Variables
-
-| Attribute | Value      | Default  | Description                             |
-|-----------|------------|----------|-----------------------------------------|
-| `size`    | `normal` `compact` | `normal` | Optional. The size of the widget. |
-
-
-You can customize the integration by using these variables and attributes as needed for your application.
 
 ## Example
 See [sample-partner-app-express](sample-partner-app-express) of an example written in Express.js
