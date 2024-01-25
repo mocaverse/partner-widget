@@ -77,5 +77,45 @@ If you prefer a smaller-sized button, you can achieve this by adding a `size` at
 ```
 
 
-## Example
+### Example
 See [sample-partner-app-express](sample-partner-app-express) of an example written in Express.js
+
+## Related topics
+
+### Constructing the URL manually
+Although it is not the recommended method since url path and parameters are subject to changes, constructing the url manually for joining Mocaverse is possible. After constructing the jwt, you may include this information as well as an optional redirect url back to your app as follows:
+
+```html
+https://account.mocaverse.xyz/?partner=<jwt>&redirect=<url>
+```
+
+Note that the redirect url specified must be whitelisted in the "Set up" step.
+
+### Getting Realm ID of a linked user
+To obtain whether a user on your platform has already minted a Realm ID, you may call this Partner API to obtain this information.
+
+```http
+GET https://api.moca-id.mocaverse.xyz/partner/user
+```
+
+| Header | Type | Description |
+| :--- | :--- | :--- |
+| `partner-jwt` | `string` | **Required**. Your generated JWT, with partnerId and partnerUserId embedded. |
+
+#### Response
+
+```javascript
+{
+  "realmId" : string
+}
+```
+The `realmId` attribute contains the user's Realm ID, or `null` in the case where the user or Realm ID is not found.
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | OK |
+| 400 | Bad request, missing or invalid parameters in the request |
+| 401 | Unauthorized, missing partner-jwt |
+| 403 | Forbidden, invalid partner-jwt or insufficient permissions |
+| 429 | Rate Limit Exceeded |
+| 500 | Internal server error or error in processing the request |
