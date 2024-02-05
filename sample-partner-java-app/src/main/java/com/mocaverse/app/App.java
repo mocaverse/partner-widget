@@ -12,6 +12,44 @@ import java.util.Base64;
 import java.util.Date;
 
 public class App {
+    public static void main(String[] args) throws Exception {
+        try {
+            RSAPrivateKey privateKey = App.getRSAPrivateKeyFromString(App.SAMPLE_PRIVATE_KEY);
+            String jwt = generateJWT(privateKey);
+            System.out.println("Generated JWT: " + jwt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String generateJWT(RSAPrivateKey privateKey) {
+        Date NOW = new Date();
+        Date ONE_HOUR_LATER = new Date(NOW.getTime() + 3600000);
+
+        JWTCreator.Builder jwtBuilder = JWT.create()
+                .withIssuedAt(NOW)
+                .withExpiresAt(ONE_HOUR_LATER);
+
+        jwtBuilder.withClaim("partnerId", "YOUR_PARTNER_ID")
+                .withClaim("partnerUserId", "YOUR_PARTNER_USER_ID")
+                .withClaim("partnerUserName", "YOUR_PARTNER_USER_NAME");
+
+        return jwtBuilder.sign(Algorithm.RSA256(null, privateKey));
+    }
+
+    private static RSAPrivateKey getRSAPrivateKeyFromString(String privateKeyString) throws Exception {
+        String privateKeyPEM = privateKeyString
+                .replace("-----BEGIN PRIVATE KEY-----", "")
+                .replace("-----END PRIVATE KEY-----", "")
+                .replaceAll("\\s+", "");
+        byte[] privateKeyBytes = Base64.getDecoder().decode(privateKeyPEM);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
+        return rsaPrivateKey;
+    }
+
     static private String SAMPLE_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\n" + //
             "MIIJQwIBADANBgkqhkiG9w0BAQEFAASCCS0wggkpAgEAAoICAQDNLdZ/5ldE1RCE\n" + //
             "aVgaacFQ2NaDFbM7nWiGqsJyIMH0yhs15RinWw/wLfJuwRYpw4ZkxmQ03vo4uXHT\n" + //
@@ -64,43 +102,5 @@ public class App {
             "yDISH5h7m3UWsuqR/g8w/iKRwRaWuJRbXUOwDJVveUtZ9mk3d+6+FBoMRFqMVORP\n" + //
             "K/f92ArxYYibivPhsvAsWnKVL1YFlEE=\n" + //
             "-----END PRIVATE KEY-----";
-
-    public static void main(String[] args) throws Exception {
-        try {
-            RSAPrivateKey privateKey = App.getRSAPrivateKeyFromString(App.SAMPLE_PRIVATE_KEY);
-            String jwt = generateJWT(privateKey);
-            System.out.println("Generated JWT: " + jwt);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String generateJWT(RSAPrivateKey privateKey) {
-        Date NOW = new Date();
-        Date ONE_HOUR_LATER = new Date(NOW.getTime() + 3600000);
-
-        JWTCreator.Builder jwtBuilder = JWT.create()
-                .withIssuedAt(NOW)
-                .withExpiresAt(ONE_HOUR_LATER);
-
-        jwtBuilder.withClaim("partnerId", "YOUR_PARTNER_ID")
-                .withClaim("partnerUserId", "YOUR_PARTNER_USER_ID")
-                .withClaim("partnerUserName", "YOUR_PARTNER_USER_NAME");
-
-        return jwtBuilder.sign(Algorithm.RSA256(null, privateKey));
-    }
-
-    private static RSAPrivateKey getRSAPrivateKeyFromString(String privateKeyString) throws Exception {
-        String privateKeyPEM = privateKeyString
-                .replace("-----BEGIN PRIVATE KEY-----", "")
-                .replace("-----END PRIVATE KEY-----", "")
-                .replaceAll("\\s+", "");
-        byte[] privateKeyBytes = Base64.getDecoder().decode(privateKeyPEM);
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
-        return rsaPrivateKey;
-    }
 
 }
