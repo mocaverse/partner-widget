@@ -12,26 +12,6 @@ import java.util.Base64;
 import java.util.Date;
 
 public class App {
-    // convert.key to .pem: openssl pkcs8 -in private.key -topk8 -nocrypt -out private.pem
-    //
-    // Sample Public Key - go to https://jwt.io/ verify against generated JWT
-    /*
------BEGIN PUBLIC KEY-----
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAzS3Wf+ZXRNUQhGlYGmnB
-UNjWgxWzO51ohqrCciDB9MobNeUYp1sP8C3ybsEWKcOGZMZkNN76OLlx0wghkLt4
-/CDa4SH3f8ePTq5NFg2Ioa1BQfLYW1ZciMXf8tMo40IoKW9qomgLwkeDd51/Ld7m
-cbwyXb8c8kwgZqWyYNk+JIRutOAQn1rGr5DIRt0InYuPYBSe1PmQlPy/Rn7CP+Ub
-ZNtQfu/M6h6+gJ7XZUbWHXDBvPsjamjJRLSNbxrV37GB8+eYpI7zwnjGazb9RIfw
-lfYmxuDXd0cIv9/X6/mhgm68pRbqkTppDaqaTtBrwvN4hflWXM0sIEeMNL9X5m1I
-Ofg2WlrFEQDLdADBuVVMPNAUnTx0xtMXMZRXq8r+XZK1G5z/efuRyzY0Oj9MLcCa
-PysD9Yvacm3OOD95bqHXCtQ6lokklSrv32PAuHDcsqzmUva8rH3Rc4dzP+qhfSVj
-WkKdmcIMkK7XJRzR+FZVm3SZt7nP7YDPhwc8zBXSVthQAlRgJC+y3RME+lM8Xw2X
-08MoQWd45nN7CTLMqsicppV66u1k0UmSJ4eZ0TW4EqalKBEGtc5YKI0nA8ZNxlBU
-suFgboBvs2eSnp4j5XpCImpM0YCqvrLjnLDiW/dMcFQ8Ebov6XiioNxzx4Kv0Tv8
-pHLTh/izkLgSU9n+8chjuDECAwEAAQ==
------END PUBLIC KEY-----
-    */
-
     static private String SAMPLE_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\n" + //
             "MIIJQwIBADANBgkqhkiG9w0BAQEFAASCCS0wggkpAgEAAoICAQDNLdZ/5ldE1RCE\n" + //
             "aVgaacFQ2NaDFbM7nWiGqsJyIMH0yhs15RinWw/wLfJuwRYpw4ZkxmQ03vo4uXHT\n" + //
@@ -99,7 +79,6 @@ pHLTh/izkLgSU9n+8chjuDECAwEAAQ==
         Date NOW = new Date();
         Date ONE_HOUR_LATER = new Date(NOW.getTime() + 3600000);
 
-        // Create the JWT builder
         JWTCreator.Builder jwtBuilder = JWT.create()
                 .withIssuedAt(NOW)
                 .withExpiresAt(ONE_HOUR_LATER);
