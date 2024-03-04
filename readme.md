@@ -95,7 +95,7 @@ Note that the redirect url specified must be whitelisted in the "Set up" step.
 To obtain whether a user on your platform has already minted a Realm ID, you may call this Partner API to obtain this information.
 
 ```http
-GET https://api.moca-id.mocaverse.xyz/partner/user
+GET https://api.moca-id.mocaverse.xyz/api/partner/user
 ```
 
 | Header | Type | Description |
