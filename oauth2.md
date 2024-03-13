@@ -105,7 +105,10 @@ https://your-app.example.com/callback?error=access_denied&state=E0BXkRkKnvqMiDdY
 ```http
 POST https://oauth.mocaverse.xyz/api/oauth/token
 ```
-Content-type: `application/x-www-form-urlencoded`
+
+| Header       | Description                         |
+|--------------|-------------------------------------|
+| Content-Type | `application/x-www-form-urlencoded` |
 
 | Parameter     | Description                                                                           |
 |---------------|---------------------------------------------------------------------------------------|
@@ -118,8 +121,15 @@ Content-type: `application/x-www-form-urlencoded`
 ##### Example
 
 ```http
-POST https://oauth.mocaverse.xyz/api/oauth/token?grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=602cbbe1-60dd-482f-b0d8-329f5f1254c7&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
+POST https://oauth.mocaverse.xyz/api/oauth/token
 ```
+
+**Request Body**
+
+```
+grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=602cbbe1-60dd-482f-b0d8-329f5f1254c7&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
+```
+
 The above example contains a request with the following parameters
 - grant_type=authorization_code
 - client_id=EXAMPLE_CLIENT_ID
