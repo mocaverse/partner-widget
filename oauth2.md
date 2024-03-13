@@ -154,7 +154,7 @@ Link a user id of your platform to Mocaverse.
 #### Request
 
 ```
-POST https://api.moca-id.mocaverse.xyz/api/partner/add-user
+POST https://api.moca-id.mocaverse.xyz/api/partner/user
 ```
 
 | Header          | Description             |
