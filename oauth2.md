@@ -2,6 +2,14 @@
 
 This document provides the steps for partners to integrate their applications to Mocaverse using OAuth 2.0 (Authorization Code Flow).
 
+- [Set up](#set-up)
+- [Obtaining User Access Token](#obtaining-user-access-token)
+- [OAuth2 APIs](#oauth2-apis)
+  - [User Registration](#1-user-registration)
+  - [Get Realm ID](#2-get-realm-id-of-the-current-user)
+  - [Get Sales Eligibility](#3-user-sales-eligibility)
+
+
 ## Set up
 
 - Obtain the `client_id` and `client_secret` from our team
@@ -10,12 +18,12 @@ This document provides the steps for partners to integrate their applications to
 ## Obtaining User Access Token
 
 To obtain a user's access token, the OAuth2 flow would be:
-1. User Authorization Request: Construct a link for the user authorization through Mocaverse.
-2. Authorization code request callback: User is redirected back to your app with an authorization code after the authorization is complete.
-3. Access Token Request: Your app requests an access token using the authorization code.
+1. [User Authorization Request](#1-user-authorization-request): Construct a link for the user authorization through Mocaverse.
+2. [Authorization code request callback](#2-authorization-code-request-callback): User is redirected back to your app with an authorization code after the authorization is complete.
+3. [Access Token Request](#3-access-token-request): Your app requests an access token using the authorization code.
 
 #### Error Handling
-The requests in this flow could potentially encounter errors. The following fields are common across our APIs.
+The following fields are common for errors that could happen while obtaining the user access token.
 
 | Field               | Description                                 |
 |---------------------|---------------------------------------------|
@@ -29,6 +37,8 @@ Example:
   "error_description": "invalid client_id"
 }
 ```
+
+
 
 ### 1. User Authorization Request
 
@@ -84,7 +94,7 @@ If an authenticated user **approves** the authorization request, they will be re
 #### Examples
 **Success**
 ```
-https://your-app.example.com/callback?code=602cbbe1-60dd-482f-b0d8-329f5f1254c7&state=v6glrJn3gf3qL4rPFLBB
+https://your-app.example.com/callback?code=602cbbe1-60dd-482f-b0d8-329f5f1254c7&state=RANDOM_STRING_v6glrJn3gf3qL4rPFLBB
 ```
 
 
@@ -123,13 +133,13 @@ Content-type: `application/x-www-form-urlencoded`
 #### Example
 
 ```http
-POST https://oauth.mocaverse.xyz/api/oauth/token?grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=ABCDEFG&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
+POST https://oauth.mocaverse.xyz/api/oauth/token?grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=602cbbe1-60dd-482f-b0d8-329f5f1254c7&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
 ```
 The above example contains a request with the following parameters
 - grant_type=authorization_code
 - client_id=EXAMPLE_CLIENT_ID
 - client secret=MOCA_SECRET
-- code=ABCDEFG
+- code=602cbbe1-60dd-482f-b0d8-329f5f1254c7
 - redirect_uri=https://your-app.example.com/callback
 
 * * *
