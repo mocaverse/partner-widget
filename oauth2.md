@@ -194,7 +194,7 @@ POST https://api.moca-id.mocaverse.xyz/api/partner/add-user
 
 ### 2. Check User Registration
 
-Check if a user id of your platform has been linked to Mocaverse.
+Check if the current user has linked your platform's user id.
 
 #### Request
 
