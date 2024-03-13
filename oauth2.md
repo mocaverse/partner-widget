@@ -6,7 +6,7 @@ This document provides the steps for partners to integrate their applications to
 - [Obtaining User Access Token](#obtaining-user-access-token)
 - [OAuth2 APIs](#oauth2-apis)
   - [User Registration](#1-user-registration)
-  - [Get Realm ID](#2-get-realm-id-of-the-current-user)
+  - [Check User Registraiont](#2-check-user-registration)
   - [Get Sales Eligibility](#3-user-sales-eligibility)
 
 
@@ -192,9 +192,9 @@ POST https://api.moca-id.mocaverse.xyz/api/partner/add-user
 }
 ```
 
-### 2. Get Realm ID of the current user
+### 2. Check User Registration
 
-Getting the Realm ID of a user.
+Check if a user id of your platform has been linked to Mocaverse.
 
 #### Request
 
@@ -210,16 +210,16 @@ GET https://api.moca-id.mocaverse.xyz/api/partner/user
 
 | Response | Description                                |
 |----------|--------------------------------------------|
-| realmId      | Realm Id if user is linked, null otherwise |
+| partnerUserId      | your user id if linked, null otherwise |
 
 #### Example
-**Success**
+**User has linked**
 ```json
-{ "realmId": "user.moca" }
+{ "partnerUserId": "123456" }
 ```
-**User has no realm ID associated**
+**User has not linked**
 ```json
-{ "realmId": null }
+{ "partnerUserId": null }
 ```
 
 ### 3. User Sales Eligibility
