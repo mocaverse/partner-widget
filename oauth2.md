@@ -248,7 +248,7 @@ Getting sales eligibility info of a user.
 #### Request
 
 ```
-GET https://api.moca-id.mocaverse.xyz/api/oauth/partner/eligibility
+GET https://api.moca-id.mocaverse.xyz/api/oauth/partner/user-eligibility
 ```
 
 | Header          | Description             |
