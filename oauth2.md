@@ -123,7 +123,7 @@ Content-type: `application/x-www-form-urlencoded`
 #### Example
 
 ```http
-POST https://oauth.mocaverse.xyz/api/oauth/auth?token?grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=ABCDEFG&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
+POST https://oauth.mocaverse.xyz/api/oauth/token?grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=ABCDEFG&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
 ```
 The above example contains a request with the following parameters
 - grant_type=authorization_code
