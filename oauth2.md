@@ -154,7 +154,7 @@ Link a user id of your platform to Mocaverse.
 #### Request
 
 ```
-POST https://api.moca-id.mocaverse.xyz/api/partner/partner-user
+POST https://api.moca-id.mocaverse.xyz/api/oauth/partner/user
 ```
 
 | Header          | Description             |
@@ -199,7 +199,7 @@ Check if the current user has linked your platform's user id.
 #### Request
 
 ```
-GET https://api.moca-id.mocaverse.xyz/api/partner/partner-user
+GET https://api.moca-id.mocaverse.xyz/api/oauth/partner/user
 ```
 
 | Header          | Description             |
@@ -231,7 +231,7 @@ Getting sales eligibility info of a user.
 #### Request
 
 ```
-GET https://api.moca-id.mocaverse.xyz/api/partner/eligibility
+GET https://api.moca-id.mocaverse.xyz/api/oauth/partner/eligibility
 ```
 
 | Header          | Description             |
