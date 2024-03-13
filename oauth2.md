@@ -9,6 +9,27 @@ This document provides the steps for partners to integrate their applications to
 
 ## Obtaining User Access Token
 
+To obtain a user's access token, the OAuth2 flow would be:
+1. User Authorization Request: Construct a link for the user authorization through Mocaverse.
+2. Authorization code request callback: User is redirected back to your app with an authorization code after the authorization is complete.
+3. Access Token Request: Your app requests an access token using the authorization code.
+
+#### Error Handling
+The requests in this flow could potentially encounter errors. The following fields are common across our APIs.
+
+| Field               | Description                                 |
+|---------------------|---------------------------------------------|
+| `error`             | [Error Code Reference](#oauth2-error-codes) |
+| `error_description` | Error details/summary                       |
+
+Example:
+```json
+{
+  "error": "invalid_request",
+  "error_description": "invalid client_id"
+}
+```
+
 ### 1. User Authorization Request
 
 Construct the URL for users to log into Mocaverse.
@@ -57,7 +78,7 @@ If an authenticated user **approves** the authorization request, they will be re
 
 | Field               | Description                                 |
 |---------------------|---------------------------------------------|
-| `code`             | the authorization code for the next step in the OAuth2 flow |
+| `code`             | The authorization code for the next step in the OAuth2 flow |
 | `state`             | The `state` for your app to prevent CSRF attacks. Validating the `state` if the value matches with the initial request during the User Authorization Request is strongly recommended.   |
 
 #### Examples
@@ -68,6 +89,7 @@ https://your-app.example.com/callback?code=602cbbe1-60dd-482f-b0d8-329f5f1254c7&
 
 
 **Error**
+
 If the user **denies** the authorization request or if there is an error with your request, the user will be redirected to your `redirect_uri` with `error` and the provided `state` from  [step 1](#1-user-authorization-request).
 
 ```
@@ -98,22 +120,17 @@ Content-type: `application/x-www-form-urlencoded`
 | `access_token`      | the access token to be used our OAuth APIs |
 | `token_type`        | Type of token                                    |
 
+#### Example
 
-### Error Handling
-The requests in this flow could potentially encounter errors. The following fields are common across our APIs.
-
-| Field               | Description                                 |
-|---------------------|---------------------------------------------|
-| `error`             | [Error Code Reference](#oauth2-error-codes) |
-| `error_description` | Error details/summary                       |
-
-Example:
-```json
-{
-  "error": "invalid_request",
-  "error_description": "invalid client_id"
-}
+```http
+POST https://oauth.mocaverse.xyz/api/oauth/auth?token?grant_type=authorization_code&client_id=EXAMPLE_CLIENT_ID&client_secret=MOCA_SECRET&code=ABCDEFG&redirect_uri=https%3A%2F%2Fyour-app.example.com%2Fcallback
 ```
+The above example contains a request with the following parameters
+- grant_type=authorization_code
+- client_id=EXAMPLE_CLIENT_ID
+- client secret=MOCA_SECRET
+- code=ABCDEFG
+- redirect_uri=https://your-app.example.com/callback
 
 * * *
 
