@@ -262,16 +262,16 @@ GET https://api.moca-id.mocaverse.xyz/api/oauth/partner/user-eligibility
 | Response    | Description                  |
 |-------------|------------------------------|
 | realmId     | Realm ID of the current user |
-| guarenteed  | Guarenteed allocation in USD |
+| guaranteed  | Guaranteed allocation in USD |
 | waitlisted  | Waitlisted allocation in USD |
-| description | Eligiblity text description  |
+| description | Eligibility text description |
 
 ##### Example
 
 ```json
 {
   "realmId": "user.moca",
-  "guarenteed": 4200,
+  "guaranteed": 4200,
   "waitlisted": 300,
   "description": "You qualify for guaranteed token allocation of up to USD4200, and an additional waitlisted allocation up to USD300 through a raffle if there's under allocation. Refer to the token sale rules for details."
 }
